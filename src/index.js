@@ -14,7 +14,7 @@ function glslifyInline(options) {
     setup(build) {
       const cache = {}
 
-      build.onLoad({ filter: /\.(js|ts|jsx|tsx)$/ }, async (args) => {
+      build.onLoad({ filter: /\.(js|ts)$/ }, async (args) => {
         if (args.path.includes('/node_modules/')) {
           return
         }
