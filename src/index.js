@@ -1,12 +1,14 @@
-import fs from 'fs/promises'
+const fs = require('fs/promises')
 // The babel-plugin-glsl compiler is a really 👨‍🍳🤌 glslify compiler.
 // It doesn't rename imports, so you can import a function in
 // a string and use it in another. Read more at:
 // https://github.com/onnovisser/babel-plugin-glsl#imported-function-names
-import compile from 'babel-plugin-glsl/lib/compile.js'
-import { minifyShader } from './minifyShader.js'
+const compile = require('babel-plugin-glsl/lib/compile.js')
+const minifyShader = require('./minifyShader.js')
 
-export function glslifyInline({ minify = false } = {}) {
+function glslifyInline(options) {
+  const config = Object.assign({ minify: false }, options);
+
   return {
     name: 'glslifyInline',
     setup(build) {
@@ -38,7 +40,7 @@ export function glslifyInline({ minify = false } = {}) {
           }
 
           let contents = compile(glslifyImport)
-          if (minify) {
+          if (config.minify) {
             contents = minifyShader(contents)
           }
           cache[glslifyImport] = contents
@@ -52,3 +54,5 @@ export function glslifyInline({ minify = false } = {}) {
     },
   }
 }
+
+module.exports = glslifyInline;

@@ -5,4 +5,4 @@ type Options = {
 }
 
 declare function glslInline(options?: Options): Plugin
-export { glslInline }
+export default glslInline;

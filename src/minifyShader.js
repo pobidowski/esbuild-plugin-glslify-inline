@@ -8,7 +8,7 @@
  * @return The minified code.
  */
 
-export function minifyShader(source) {
+function minifyShader(source) {
   const commentsRegExp = /[ \t]*(?:(?:\/\*[\s\S]*?\*\/)|(?:\/\/.*\n))/g
   const symbolsRegExp = /\s*({|}|=|\*|,|\+|\/|>|<|&|\||\[|\]|\(|\)|-|!|;)\s*/g
 
@@ -39,3 +39,5 @@ export function minifyShader(source) {
 
   return result.replace(/\n{2,}/g, '\n')
 }
+
+module.exports = minifyShader;
